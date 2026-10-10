@@ -2,6 +2,10 @@
 
 Señalética digital para lobbies, como plugin de WordPress. Pensado para mostrar anuncios, avisos y contenido en las TVs de una iglesia, una oficina, una recepción o cualquier lugar con pantallas. Cada pantalla es solo una URL del sitio abierta en el navegador de la TV.
 
+## Panel de gestión
+
+Las personas que administran las pantallas no entran a WordPress: usan un panel propio en **`/gestor/`** (por ejemplo `https://tu-sitio/gestor/`), con su propio acceso, su marca y su diseño. Desde ahí gestionan contenidos, listas, pantallas y ajustes sin ver nada de WordPress. Entran con un usuario de WordPress que tenga permiso de edición.
+
 ## Cómo funciona
 
 1. **Categorías:** agrupan tus contenidos como quieras (Anuncios, Eventos, Bienvenida…).
@@ -31,6 +35,9 @@ src/
 ├── Contents/     Contenidos: tipos, vigencia, editor y listado
 ├── Categories/   Categorías de contenidos
 ├── Player/       Reproductor público: ruta /pantalla/, API REST, vista y JS
+├── Panel/        Panel de gestión de marca blanca en /gestor/ (fuera de wp-admin)
+├── Settings/     Ajustes globales (marca, logo, intervalo, fondo)
+├── Security/     Endurecimiento (bloquea enumeración de usuarios por REST)
 └── Shared/       Utilidades comunes del administrador
 ```
 

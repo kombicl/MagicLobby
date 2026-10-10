@@ -12,6 +12,8 @@
 	var empty = document.getElementById( 'lobbyinfo-empty' );
 	var clock = document.getElementById( 'lobbyinfo-clock' );
 	var fsButton = document.getElementById( 'lobbyinfo-fullscreen' );
+	var offline = document.getElementById( 'lobbyinfo-offline' );
+	var failures = 0;
 
 	var TRANSITION_MS = 800;
 	var RELOAD_AFTER_MS = 12 * 60 * 60 * 1000; // Recarga preventiva para liberar memoria.
@@ -173,6 +175,8 @@
 				return res.json();
 			} )
 			.then( function ( fresh ) {
+				failures = 0;
+				if ( offline ) { offline.hidden = true; }
 				if ( fresh.hash === data.hash ) {
 					return;
 				}
@@ -182,7 +186,11 @@
 					next();
 				}
 			} )
-			.catch( function () { /* Sin conexión: se sigue mostrando lo último. */ } );
+			.catch( function () {
+				// Sin conexion: se sigue mostrando lo ultimo. Se avisa tras varios fallos seguidos.
+				failures++;
+				if ( offline && failures >= 3 ) { offline.hidden = false; }
+			} );
 	}
 
 	function tick() {

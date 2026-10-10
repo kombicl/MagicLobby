@@ -9,13 +9,11 @@ use LobbyInfo\Contents\Content;
 use LobbyInfo\Playlists\Playlist;
 use LobbyInfo\Screens\Schedule;
 use LobbyInfo\Screens\Screen;
+use LobbyInfo\Settings\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
 final class PlayerPayload {
-
-	/** Segundos entre consultas del reproductor para detectar cambios. */
-	public const POLL_SECONDS = 30;
 
 	public static function for_screen( $screen_id ) {
 		$playlist_id = Schedule::current_playlist( $screen_id );
@@ -32,7 +30,8 @@ final class PlayerPayload {
 
 		// Si el hash no cambia, el reproductor sigue sin interrumpir lo que muestra.
 		$data['hash'] = md5( wp_json_encode( $data ) );
-		$data['poll'] = self::POLL_SECONDS;
+		$data['poll'] = (int) Settings::get( 'poll_seconds' );
+		$data['bg']   = Settings::get( 'player_bg' );
 		return $data;
 	}
 }

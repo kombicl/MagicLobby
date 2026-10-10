@@ -22,6 +22,9 @@ final class Plugin {
 		Categories\Category::class,
 		Player\PlayerRoute::class,
 		Player\PlayerApi::class,
+		Panel\Panel::class,
+		Settings\Settings::class,
+		Security\Security::class,
 		Shared\Admin::class,
 	);
 
@@ -37,6 +40,7 @@ final class Plugin {
 		Contents\Content::register_post_type();
 		Categories\Category::register_taxonomy();
 		Player\PlayerRoute::add_rewrite();
+		Panel\Panel::add_rewrite();
 		flush_rewrite_rules();
 	}
 }

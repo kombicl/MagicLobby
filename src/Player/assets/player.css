@@ -39,3 +39,8 @@ html, body { margin: 0; height: 100%; overflow: hidden; background: #000; color:
 .lobbyinfo-fullscreen { position: fixed; right: 16px; bottom: 16px; z-index: 10; padding: 10px 16px; border: 0; border-radius: 6px; background: rgba(0, 0, 0, .6); color: #fff; font: inherit; cursor: pointer; transition: opacity .3s; }
 body.is-idle { cursor: none; }
 body.is-idle .lobbyinfo-fullscreen { opacity: 0; pointer-events: none; }
+
+/* Aviso de reconexión */
+.lobbyinfo-offline{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:20;padding:8px 18px;border-radius:999px;background:#d63638;color:#fff;font-size:2.4vmin;opacity:.92}
+.lobbyinfo-offline[hidden]{display:none}
+body.is-idle .lobbyinfo-offline{opacity:.6}
