@@ -25,6 +25,7 @@ final class Plugin {
 		Panel\Panel::class,
 		Settings\Settings::class,
 		Security\Security::class,
+		Updates\Updater::class,
 		Shared\Admin::class,
 	);
 

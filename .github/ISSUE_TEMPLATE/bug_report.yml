@@ -1,0 +1,37 @@
+name: "🐞 Reportar un problema"
+description: Algo no funciona como debería.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: que-pasa
+    attributes:
+      label: ¿Qué pasa?
+      description: Describe el problema con tus palabras.
+      placeholder: Al abrir una pantalla en la TV se queda en negro...
+    validations:
+      required: true
+  - type: textarea
+    id: pasos
+    attributes:
+      label: Pasos para reproducirlo
+      placeholder: |
+        1. Entro al panel en /gestor/
+        2. Creo una lista con...
+        3. Abro /pantalla/lobby/
+    validations:
+      required: true
+  - type: textarea
+    id: esperado
+    attributes:
+      label: ¿Qué esperabas que pasara?
+    validations:
+      required: false
+  - type: input
+    id: entorno
+    attributes:
+      label: Entorno
+      description: Versión de MagicLobby, de WordPress y de PHP si las conoces.
+      placeholder: "MagicLobby 0.1.0 · WordPress 6.6 · PHP 8.3"
+    validations:
+      required: false

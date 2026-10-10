@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  php-lint:
+    name: Sintaxis PHP
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configurar PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.0"
+      - name: Revisar sintaxis de todos los .php
+        run: |
+          find . -type f -name "*.php" -not -path "./vendor/*" -print0 \
+            | xargs -0 -n1 -P4 php -l
