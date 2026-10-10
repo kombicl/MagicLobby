@@ -20,7 +20,8 @@ html, body { margin: 0; height: 100%; overflow: hidden; background: #000; color:
 /* Transiciones */
 .transition-fade .lobbyinfo-slide { opacity: 0; transition: opacity .8s ease; }
 .transition-fade .lobbyinfo-slide.is-active { opacity: 1; }
-.transition-fade .lobbyinfo-slide.is-leaving { opacity: 0; }
+/* La anterior queda visible debajo mientras la nueva aparece encima: sin parpadeo a negro. */
+.transition-fade .lobbyinfo-slide.is-leaving { opacity: 1; transition: none; }
 
 .transition-slide .lobbyinfo-slide { transform: translateX(100%); transition: transform .8s ease; }
 .transition-slide .lobbyinfo-slide.is-active { transform: translateX(0); }

@@ -16,6 +16,23 @@ final class Admin {
 
 	public static function register() {
 		add_action( 'admin_enqueue_scripts', array( self::class, 'enqueue_styles' ) );
+		add_action( 'admin_notices', array( self::class, 'timezone_notice' ) );
+	}
+
+	/**
+	 * Con un desfase fijo (p. ej. UTC-3) la programación se corre una hora con el
+	 * cambio de horario; hace falta una ciudad, como America/Santiago.
+	 */
+	public static function timezone_notice() {
+		if ( get_option( 'timezone_string' ) || ! self::is_editing( self::POST_TYPES ) || ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+		printf(
+			'<div class="notice notice-warning"><p>%s <a href="%s">%s</a></p></div>',
+			esc_html__( 'LobbyInfo: la zona horaria del sitio es un desfase fijo, así que la programación se correrá una hora con el cambio de horario. Elige una ciudad (por ejemplo, Santiago).', 'lobbyinfo' ),
+			esc_url( admin_url( 'options-general.php' ) ),
+			esc_html__( 'Ir a Ajustes', 'lobbyinfo' )
+		);
 	}
 
 	public static function enqueue_styles() {

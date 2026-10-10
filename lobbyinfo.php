@@ -33,4 +33,8 @@ spl_autoload_register( function ( $class ) {
 LobbyInfo\Plugin::boot();
 
 register_activation_hook( __FILE__, array( LobbyInfo\Plugin::class, 'activate' ) );
-register_deactivation_hook( __FILE__, 'flush_rewrite_rules' );
+// Al desactivar, la regla /pantalla/ sigue registrada en esta petición: se borra la caché
+// de reglas para que WordPress la regenere sin el plugin en la próxima carga.
+register_deactivation_hook( __FILE__, function () {
+	delete_option( 'rewrite_rules' );
+} );

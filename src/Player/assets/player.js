@@ -22,6 +22,7 @@
 	var timer = null;
 	var current = null;
 	var looping = false; // Un único video en bucle: no hay avance programado.
+	var generation = 0; // Invalida avisos atrasados (fin de video, errores, timers) de contenidos anteriores.
 
 	function el( tag, attrs ) {
 		var node = document.createElement( tag );
@@ -71,21 +72,32 @@
 		clearTimeout( timer );
 		timer = null;
 		looping = false;
+
+		var mine = ++generation;
+		function advance() {
+			if ( mine === generation ) {
+				next();
+			}
+		}
+		function retry() {
+			clearTimeout( timer );
+			timer = setTimeout( advance, 10000 );
+		}
 		var video = item.type === 'video' ? slide.querySelector( 'video' ) : null;
 
 		if ( video ) {
 			var single = data.items.length === 1 && ! item.duration;
 			video.loop = single;
 			looping = single;
-			video.onended = single ? null : next;
-			video.onerror = function () { timer = setTimeout( next, 2000 ); };
+			video.onended = single ? null : advance;
+			video.onerror = retry;
 			var play = video.play();
 			if ( play && play.catch ) {
-				play.catch( function () { timer = setTimeout( next, 2000 ); } );
+				play.catch( retry );
 			}
 		}
 		if ( item.duration ) {
-			timer = setTimeout( next, item.duration * 1000 );
+			timer = setTimeout( advance, item.duration * 1000 );
 		}
 	}
 
@@ -100,6 +112,11 @@
 		slide.classList.add( 'is-active' );
 
 		if ( previous ) {
+			var oldVideo = previous.querySelector( 'video' );
+			if ( oldVideo ) {
+				oldVideo.onended = oldVideo.onerror = null;
+				oldVideo.pause();
+			}
 			previous.classList.remove( 'is-active' );
 			previous.classList.add( 'is-leaving' );
 			setTimeout( function () {
@@ -195,9 +212,18 @@
 	wake();
 	next();
 	setInterval( poll, ( data.poll || 30 ) * 1000 );
-	setTimeout( function () {
-		if ( navigator.onLine ) {
-			location.reload();
-		}
-	}, RELOAD_AFTER_MS );
+	// Solo recarga si el servidor responde: si no, la TV quedaría en una página de error.
+	function safeReload() {
+		fetch( config.endpoint, { cache: 'no-store' } )
+			.then( function ( res ) {
+				if ( ! res.ok ) {
+					throw new Error( res.status );
+				}
+				location.reload();
+			} )
+			.catch( function () {
+				setTimeout( safeReload, 5 * 60 * 1000 );
+			} );
+	}
+	setTimeout( safeReload, RELOAD_AFTER_MS );
 }() );

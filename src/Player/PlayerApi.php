@@ -20,7 +20,7 @@ final class PlayerApi {
 	}
 
 	public static function routes() {
-		register_rest_route( self::NAMESPACE, '/screens/(?P<slug>[a-z0-9_-]+)', array(
+		register_rest_route( self::NAMESPACE, '/screens/(?P<slug>[^/]+)', array(
 			'methods'             => 'GET',
 			'callback'            => array( self::class, 'screen' ),
 			'permission_callback' => '__return_true', // Las pantallas son públicas, igual que su URL.

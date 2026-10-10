@@ -48,14 +48,16 @@ final class Playlist {
 	}
 
 	/**
-	 * Contenidos a reproducir: primero los elegidos (en su orden), luego los de
-	 * las categorías incluidas; sin repetidos y solo los visibles hoy.
+	 * Contenidos a reproducir: primero los elegidos (en su orden, se pueden repetir
+	 * a propósito), luego los de las categorías que no estén ya elegidos.
+	 * Solo los visibles hoy.
 	 */
 	public static function content_ids( $playlist_id ) {
-		$ids = array_unique( array_merge(
-			self::chosen_ids( $playlist_id ),
-			Category::content_ids( self::category_ids( $playlist_id ) )
-		) );
+		$chosen = self::chosen_ids( $playlist_id );
+		$ids    = array_merge(
+			$chosen,
+			array_diff( Category::content_ids( self::category_ids( $playlist_id ) ), $chosen )
+		);
 		return array_values( array_filter( $ids, array( Content::class, 'is_visible' ) ) );
 	}
 }

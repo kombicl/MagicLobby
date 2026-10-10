@@ -6,6 +6,7 @@
 namespace LobbyInfo\Screens;
 
 use DateTimeImmutable;
+use LobbyInfo\Playlists\Playlist;
 use LobbyInfo\Shared\Admin;
 
 defined( 'ABSPATH' ) || exit;
@@ -63,7 +64,10 @@ final class Schedule {
 		$time      = $now->format( 'H:i' );
 
 		foreach ( self::rules( $screen_id ) as $rule ) {
-			$days  = array_map( 'intval', $rule['days'] );
+			if ( ! self::is_playable( $rule['playlist'] ?? 0 ) ) {
+				continue;
+			}
+			$days  = array_map( 'intval', (array) ( $rule['days'] ?? array() ) );
 			$start = $rule['start'] ?: '00:00';
 			$end   = $rule['end'] ?: '24:00';
 			$match = $start <= $end
@@ -74,6 +78,12 @@ final class Schedule {
 			}
 		}
 
-		return self::default_playlist( $screen_id );
+		$default = self::default_playlist( $screen_id );
+		return self::is_playable( $default ) ? $default : 0;
+	}
+
+	/** Una lista en borrador o en la papelera no se reproduce. */
+	private static function is_playable( $playlist_id ) {
+		return $playlist_id && Playlist::POST_TYPE === get_post_type( $playlist_id ) && 'publish' === get_post_status( $playlist_id );
 	}
 }
