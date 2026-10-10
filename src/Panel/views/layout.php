@@ -50,6 +50,12 @@ defined( 'ABSPATH' ) || exit;
 		<?php require $content_view; ?>
 	</main>
 
+	<footer class="lp-foot lp-page-foot">
+		<?php esc_html_e( 'Creado por', 'magiclobby' ); ?>
+		<a href="https://kombi.cl" target="_blank" rel="noopener">kombi.cl</a>
+		· <a href="https://github.com/kombicl/MagicLobby" target="_blank" rel="noopener">GitHub</a>
+	</footer>
+
 	<script src="<?php echo esc_url( $assets . 'panel.js?ver=' . MAGICLOBBY_VERSION ); ?>"></script>
 </body>
 </html>

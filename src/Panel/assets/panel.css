@@ -145,3 +145,12 @@ img{max-width:100%}
 	.lp-row2{grid-template-columns:1fr}
 	.lp-head .lp-btn-primary{margin-left:0}
 }
+
+/* Logo sobre fondo claro para que resalte en el banner oscuro */
+.lp-brand img,.lp-login-brand img{background:#fff;padding:6px 10px;border-radius:8px}
+.lp-login-brand img{padding:10px 16px}
+
+/* Pie: creado por Kombi */
+.lp-foot{text-align:center;color:var(--lp-soft);font-size:13px;margin:6px 0 0}
+.lp-foot a{color:var(--lp-primary-d);font-weight:600}
+.lp-page-foot{padding:24px 20px 40px}

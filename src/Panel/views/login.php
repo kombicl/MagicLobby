@@ -42,6 +42,11 @@ $error  = $error ?? '';
 		<input type="hidden" name="magiclobby_login" value="1">
 		<input type="hidden" name="_pn" value="<?php echo esc_attr( wp_create_nonce( 'magiclobby_login' ) ); ?>">
 		<button type="submit" class="lp-btn lp-btn-primary"><?php esc_html_e( 'Entrar', 'magiclobby' ); ?></button>
+		<p class="lp-foot">
+			<?php esc_html_e( 'Creado por', 'magiclobby' ); ?>
+			<a href="https://kombi.cl" target="_blank" rel="noopener">kombi.cl</a>
+			· <a href="https://github.com/kombicl/MagicLobby" target="_blank" rel="noopener">GitHub</a>
+		</p>
 	</form>
 </body>
 </html>
