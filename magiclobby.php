@@ -3,7 +3,7 @@
  * Plugin Name:       MagicLobby
  * Plugin URI:        https://github.com/kombicl/MagicLobby
  * Description:       Señalética digital para pantallas (estilo MagicInfo), como plugin de WordPress: pantallas, contenidos por categoría, listas de reproducción, programación horaria y un panel de gestión propio. Primera herramienta open source de Kombi.
- * Version:           0.2.0-beta.1
+ * Version:           0.2.0-beta.2
  * Requires at least: 6.4
  * Requires PHP:      8.0
  * Author:            Kombi
@@ -15,7 +15,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'MAGICLOBBY_VERSION', '0.2.0-beta.1' );
+define( 'MAGICLOBBY_VERSION', '0.2.0-beta.2' );
 define( 'MAGICLOBBY_FILE', __FILE__ );
 define( 'MAGICLOBBY_DIR', plugin_dir_path( __FILE__ ) );
 define( 'MAGICLOBBY_URL', plugin_dir_url( __FILE__ ) );

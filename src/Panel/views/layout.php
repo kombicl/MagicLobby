@@ -56,6 +56,6 @@ defined( 'ABSPATH' ) || exit;
 		· <a href="https://github.com/kombicl/MagicLobby" target="_blank" rel="noopener">GitHub</a>
 	</footer>
 
-	<script src="<?php echo esc_url( $assets . 'panel.js?ver=' . MAGICLOBBY_VERSION ); ?>"></script>
+	<script data-cfasync="false" src="<?php echo esc_url( $assets . 'panel.js?ver=' . MAGICLOBBY_VERSION ); ?>"></script>
 </body>
 </html>
