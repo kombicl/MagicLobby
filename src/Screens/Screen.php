@@ -3,7 +3,7 @@
  * Pantalla: una TV o monitor que muestra una lista de reproducción desde su URL.
  */
 
-namespace LobbyInfo\Screens;
+namespace MagicLobby\Screens;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -21,14 +21,14 @@ final class Screen {
 	public static function register_post_type() {
 		register_post_type( self::POST_TYPE, array(
 			'labels'          => array(
-				'name'          => __( 'Pantallas', 'lobbyinfo' ),
-				'singular_name' => __( 'Pantalla', 'lobbyinfo' ),
-				'menu_name'     => __( 'LobbyInfo', 'lobbyinfo' ),
-				'all_items'     => __( 'Pantallas', 'lobbyinfo' ),
-				'add_new'       => __( 'Añadir pantalla', 'lobbyinfo' ),
-				'add_new_item'  => __( 'Añadir pantalla', 'lobbyinfo' ),
-				'edit_item'     => __( 'Editar pantalla', 'lobbyinfo' ),
-				'not_found'     => __( 'No hay pantallas.', 'lobbyinfo' ),
+				'name'          => __( 'Pantallas', 'magiclobby' ),
+				'singular_name' => __( 'Pantalla', 'magiclobby' ),
+				'menu_name'     => __( 'MagicLobby', 'magiclobby' ),
+				'all_items'     => __( 'Pantallas', 'magiclobby' ),
+				'add_new'       => __( 'Añadir pantalla', 'magiclobby' ),
+				'add_new_item'  => __( 'Añadir pantalla', 'magiclobby' ),
+				'edit_item'     => __( 'Editar pantalla', 'magiclobby' ),
+				'not_found'     => __( 'No hay pantallas.', 'magiclobby' ),
 			),
 			'public'          => false,
 			'show_ui'         => true,
@@ -53,9 +53,9 @@ final class Screen {
 
 	public static function transitions() {
 		return array(
-			'fade'  => __( 'Fundido', 'lobbyinfo' ),
-			'slide' => __( 'Deslizar', 'lobbyinfo' ),
-			'none'  => __( 'Sin transición', 'lobbyinfo' ),
+			'fade'  => __( 'Fundido', 'magiclobby' ),
+			'slide' => __( 'Deslizar', 'magiclobby' ),
+			'none'  => __( 'Sin transición', 'magiclobby' ),
 		);
 	}
 

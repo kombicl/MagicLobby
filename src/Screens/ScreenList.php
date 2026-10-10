@@ -3,7 +3,7 @@
  * Columnas del listado de pantallas: qué muestran ahora, si están en línea y su enlace.
  */
 
-namespace LobbyInfo\Screens;
+namespace MagicLobby\Screens;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -16,9 +16,9 @@ final class ScreenList {
 
 	public static function columns( $cols ) {
 		return array_slice( $cols, 0, 2 ) + array(
-			'li_playlist' => __( 'Mostrando ahora', 'lobbyinfo' ),
-			'li_status'   => __( 'Estado', 'lobbyinfo' ),
-			'li_link'     => __( 'Enlace', 'lobbyinfo' ),
+			'li_playlist' => __( 'Mostrando ahora', 'magiclobby' ),
+			'li_status'   => __( 'Estado', 'magiclobby' ),
+			'li_link'     => __( 'Enlace', 'magiclobby' ),
 		) + $cols;
 	}
 
@@ -44,15 +44,15 @@ final class ScreenList {
 	public static function status_html( $screen_id ) {
 		$seen = Screen::last_seen( $screen_id );
 		if ( ! $seen ) {
-			return '<span class="lobbyinfo-status">' . esc_html__( 'Nunca conectada', 'lobbyinfo' ) . '</span>';
+			return '<span class="magiclobby-status">' . esc_html__( 'Nunca conectada', 'magiclobby' ) . '</span>';
 		}
 		$online = Screen::is_online( $screen_id );
 		return sprintf(
-			'<span class="lobbyinfo-status %s">%s</span> <small>%s</small>',
+			'<span class="magiclobby-status %s">%s</span> <small>%s</small>',
 			$online ? 'is-online' : 'is-offline',
-			$online ? esc_html__( 'En línea', 'lobbyinfo' ) : esc_html__( 'Desconectada', 'lobbyinfo' ),
+			$online ? esc_html__( 'En línea', 'magiclobby' ) : esc_html__( 'Desconectada', 'magiclobby' ),
 			/* translators: %s: tiempo transcurrido, p. ej. "5 minutos" */
-			esc_html( sprintf( __( 'hace %s', 'lobbyinfo' ), human_time_diff( $seen ) ) )
+			esc_html( sprintf( __( 'hace %s', 'magiclobby' ), human_time_diff( $seen ) ) )
 		);
 	}
 }

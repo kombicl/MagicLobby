@@ -3,10 +3,10 @@
  * Categoría: agrupa contenidos (las define cada organización desde el admin).
  */
 
-namespace LobbyInfo\Categories;
+namespace MagicLobby\Categories;
 
-use LobbyInfo\Contents\Content;
-use LobbyInfo\Shared\Admin;
+use MagicLobby\Contents\Content;
+use MagicLobby\Shared\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -23,11 +23,11 @@ final class Category {
 	public static function register_taxonomy() {
 		register_taxonomy( self::TAXONOMY, Content::POST_TYPE, array(
 			'labels'            => array(
-				'name'          => __( 'Categorías', 'lobbyinfo' ),
-				'singular_name' => __( 'Categoría', 'lobbyinfo' ),
-				'add_new_item'  => __( 'Añadir categoría', 'lobbyinfo' ),
-				'edit_item'     => __( 'Editar categoría', 'lobbyinfo' ),
-				'not_found'     => __( 'No hay categorías.', 'lobbyinfo' ),
+				'name'          => __( 'Categorías', 'magiclobby' ),
+				'singular_name' => __( 'Categoría', 'magiclobby' ),
+				'add_new_item'  => __( 'Añadir categoría', 'magiclobby' ),
+				'edit_item'     => __( 'Editar categoría', 'magiclobby' ),
+				'not_found'     => __( 'No hay categorías.', 'magiclobby' ),
 			),
 			'public'            => false,
 			'show_ui'           => true,
@@ -41,8 +41,8 @@ final class Category {
 	public static function add_menu() {
 		add_submenu_page(
 			Admin::MENU,
-			__( 'Categorías', 'lobbyinfo' ),
-			__( 'Categorías', 'lobbyinfo' ),
+			__( 'Categorías', 'magiclobby' ),
+			__( 'Categorías', 'magiclobby' ),
 			'manage_categories',
 			'edit-tags.php?taxonomy=' . self::TAXONOMY . '&post_type=' . Content::POST_TYPE
 		);

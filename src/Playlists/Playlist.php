@@ -3,11 +3,11 @@
  * Lista de reproducción: contenidos elegidos en orden, más categorías completas.
  */
 
-namespace LobbyInfo\Playlists;
+namespace MagicLobby\Playlists;
 
-use LobbyInfo\Categories\Category;
-use LobbyInfo\Contents\Content;
-use LobbyInfo\Shared\Admin;
+use MagicLobby\Categories\Category;
+use MagicLobby\Contents\Content;
+use MagicLobby\Shared\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -22,13 +22,13 @@ final class Playlist {
 	public static function register_post_type() {
 		register_post_type( self::POST_TYPE, array(
 			'labels'          => array(
-				'name'          => __( 'Listas de reproducción', 'lobbyinfo' ),
-				'singular_name' => __( 'Lista de reproducción', 'lobbyinfo' ),
-				'all_items'     => __( 'Listas', 'lobbyinfo' ),
-				'add_new'       => __( 'Añadir lista', 'lobbyinfo' ),
-				'add_new_item'  => __( 'Añadir lista de reproducción', 'lobbyinfo' ),
-				'edit_item'     => __( 'Editar lista de reproducción', 'lobbyinfo' ),
-				'not_found'     => __( 'No hay listas.', 'lobbyinfo' ),
+				'name'          => __( 'Listas de reproducción', 'magiclobby' ),
+				'singular_name' => __( 'Lista de reproducción', 'magiclobby' ),
+				'all_items'     => __( 'Listas', 'magiclobby' ),
+				'add_new'       => __( 'Añadir lista', 'magiclobby' ),
+				'add_new_item'  => __( 'Añadir lista de reproducción', 'magiclobby' ),
+				'edit_item'     => __( 'Editar lista de reproducción', 'magiclobby' ),
+				'not_found'     => __( 'No hay listas.', 'magiclobby' ),
 			),
 			'public'          => false,
 			'show_ui'         => true,

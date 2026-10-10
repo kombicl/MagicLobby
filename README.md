@@ -1,10 +1,12 @@
-# LobbyInfo
+# MagicLobby
 
-Señalética digital para lobbies, como plugin de WordPress. Pensado para mostrar anuncios, avisos y contenido en las TVs de una iglesia, una oficina, una recepción o cualquier lugar con pantallas. Cada pantalla es solo una URL del sitio abierta en el navegador de la TV.
+Señalética digital para pantallas (estilo Samsung MagicInfo), como plugin de WordPress. Muestra anuncios, avisos y contenido en las TVs de una iglesia, una oficina, una recepción o cualquier lugar con pantallas. Cada pantalla es solo una URL del sitio abierta en el navegador de la TV.
+
+Primera herramienta **open source de [Kombi](https://kombi.cl)**.
 
 ## Panel de gestión
 
-Las personas que administran las pantallas no entran a WordPress: usan un panel propio en **`/gestor/`** (por ejemplo `https://tu-sitio/gestor/`), con su propio acceso, su marca y su diseño. Desde ahí gestionan contenidos, listas, pantallas y ajustes sin ver nada de WordPress. Entran con un usuario de WordPress que tenga permiso de edición.
+Las personas que administran las pantallas no entran a WordPress: usan un panel propio en **`/gestor/`** (por ejemplo `https://tu-sitio/gestor/`), con su propio acceso, su marca y su diseño (tema Nord oscuro). Desde ahí gestionan contenidos, listas, pantallas y ajustes sin ver nada de WordPress. Entran con un usuario de WordPress que tenga permiso de edición.
 
 ## Cómo funciona
 
@@ -13,7 +15,7 @@ Las personas que administran las pantallas no entran a WordPress: usan un panel 
 3. **Listas de reproducción:** contenidos elegidos en orden, más categorías completas que se agregan solas.
 4. **Pantallas:** cada una tiene una lista por defecto, una transición y reglas de programación (por ejemplo, domingos de 10:00 a 13:00 se muestra la lista "Culto").
 
-La TV abre `https://tu-sitio/pantalla/{nombre}/`. El reproductor consulta cada 30 segundos si hubo cambios y los aplica sin recargar. Si se corta internet, sigue mostrando lo último que recibió. En el listado de pantallas se ve cuáles están en línea.
+La TV abre `https://tu-sitio/pantalla/{nombre}/`. El reproductor consulta cada cierto tiempo si hubo cambios y los aplica sin recargar. Si se corta internet, sigue mostrando lo último que recibió y avisa de la reconexión. En el panel se ve qué pantallas están en línea.
 
 ## Requisitos
 
@@ -22,7 +24,7 @@ La TV abre `https://tu-sitio/pantalla/{nombre}/`. El reproductor consulta cada 3
 
 ## Instalación
 
-Copia la carpeta en `wp-content/plugins/lobbyinfo`, actívalo y ve a **LobbyInfo** en el menú del admin. Si `/pantalla/...` da error 404, guarda una vez **Ajustes → Enlaces permanentes**.
+Copia la carpeta en `wp-content/plugins/magiclobby`, actívalo y entra al panel en `https://tu-sitio/gestor/` con un usuario con permiso de edición. Si `/gestor/` o `/pantalla/...` dan error 404, guarda una vez **Ajustes → Enlaces permanentes**.
 
 ## Estructura (Screaming Architecture)
 
@@ -41,12 +43,12 @@ src/
 └── Shared/       Utilidades comunes del administrador
 ```
 
-Cada carpeta tiene sus propias clases y sus `assets/`. Las clases usan el espacio de nombres `LobbyInfo\{Área}` y se cargan automáticamente (PSR-4) desde `src/`.
+Cada carpeta tiene sus propias clases y sus `assets/`. Las clases usan el espacio de nombres `MagicLobby\{Área}` y se cargan automáticamente (PSR-4) desde `src/`.
 
 ## API
 
-`GET /wp-json/lobbyinfo/v1/screens/{slug}` devuelve la lista que corresponde ahora a la pantalla, con sus contenidos y un `hash` para detectar cambios.
+`GET /wp-json/magiclobby/v1/screens/{slug}` devuelve la lista que corresponde ahora a la pantalla, con sus contenidos y un `hash` para detectar cambios.
 
 ## Licencia
 
-GPL-2.0-or-later. Autor: [alfcl](https://alf.cl).
+GPL-2.0-or-later. Un proyecto de [Kombi](https://kombi.cl).

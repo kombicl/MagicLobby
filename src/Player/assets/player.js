@@ -1,5 +1,5 @@
 /*
- * Reproductor de LobbyInfo.
+ * Reproductor de MagicLobby.
  * Muestra los contenidos en bucle y consulta la API cada cierto tiempo; si algo
  * cambió (hash distinto), aplica la nueva lista en la siguiente transición.
  * Si se pierde la conexión, sigue mostrando lo último que recibió.
@@ -7,12 +7,12 @@
 ( function () {
 	'use strict';
 
-	var config = window.LobbyInfo;
-	var stage = document.getElementById( 'lobbyinfo-stage' );
-	var empty = document.getElementById( 'lobbyinfo-empty' );
-	var clock = document.getElementById( 'lobbyinfo-clock' );
-	var fsButton = document.getElementById( 'lobbyinfo-fullscreen' );
-	var offline = document.getElementById( 'lobbyinfo-offline' );
+	var config = window.MagicLobby;
+	var stage = document.getElementById( 'magiclobby-stage' );
+	var empty = document.getElementById( 'magiclobby-empty' );
+	var clock = document.getElementById( 'magiclobby-clock' );
+	var fsButton = document.getElementById( 'magiclobby-fullscreen' );
+	var offline = document.getElementById( 'magiclobby-offline' );
 	var failures = 0;
 
 	var TRANSITION_MS = 800;
@@ -35,7 +35,7 @@
 	}
 
 	function buildSlide( item ) {
-		var slide = el( 'div', { 'class': 'lobbyinfo-slide is-' + item.type } );
+		var slide = el( 'div', { 'class': 'magiclobby-slide is-' + item.type } );
 		var media;
 
 		switch ( item.type ) {
@@ -49,7 +49,7 @@
 				media.style.objectFit = item.fit;
 				break;
 			case 'text':
-				media = el( 'div', { 'class': 'lobbyinfo-text' } );
+				media = el( 'div', { 'class': 'magiclobby-text' } );
 				media.innerHTML = item.html;
 				slide.style.background = item.bg;
 				slide.style.color = item.fg;
@@ -107,7 +107,7 @@
 		var slide = buildSlide( item );
 		var previous = current;
 
-		stage.className = 'lobbyinfo-stage transition-' + ( data.transition || 'fade' );
+		stage.className = 'magiclobby-stage transition-' + ( data.transition || 'fade' );
 		stage.appendChild( slide );
 		// Forzar el reflow para que la transición se aplique.
 		void slide.offsetWidth;

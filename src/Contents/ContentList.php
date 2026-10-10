@@ -3,7 +3,7 @@
  * Columnas del listado de contenidos.
  */
 
-namespace LobbyInfo\Contents;
+namespace MagicLobby\Contents;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -16,9 +16,9 @@ final class ContentList {
 
 	public static function columns( $cols ) {
 		return array( 'cb' => $cols['cb'], 'li_thumb' => '', 'title' => $cols['title'] ) + array(
-			'li_type'     => __( 'Tipo', 'lobbyinfo' ),
-			'li_duration' => __( 'Duración', 'lobbyinfo' ),
-			'li_validity' => __( 'Vigencia', 'lobbyinfo' ),
+			'li_type'     => __( 'Tipo', 'magiclobby' ),
+			'li_duration' => __( 'Duración', 'magiclobby' ),
+			'li_validity' => __( 'Vigencia', 'magiclobby' ),
 		) + $cols;
 	}
 
@@ -36,7 +36,7 @@ final class ContentList {
 			case 'li_duration':
 				$d = get_post_meta( $post_id, '_li_duration', true );
 				if ( '' === $d ) {
-					echo 'video' === $type ? esc_html__( 'Completo', 'lobbyinfo' ) : esc_html( Content::DEFAULT_DURATION . ' s' );
+					echo 'video' === $type ? esc_html__( 'Completo', 'magiclobby' ) : esc_html( Content::DEFAULT_DURATION . ' s' );
 				} else {
 					echo esc_html( $d . ' s' );
 				}
@@ -46,7 +46,7 @@ final class ContentList {
 				$to   = get_post_meta( $post_id, '_li_to', true );
 				echo ( $from || $to ) ? esc_html( ( $from ?: '…' ) . ' → ' . ( $to ?: '…' ) ) : '—';
 				if ( ( $from || $to ) && ! Content::is_visible( $post_id ) && 'publish' === get_post_status( $post_id ) ) {
-					echo '<br><small>' . esc_html__( 'Fuera de vigencia', 'lobbyinfo' ) . '</small>';
+					echo '<br><small>' . esc_html__( 'Fuera de vigencia', 'magiclobby' ) . '</small>';
 				}
 				break;
 		}

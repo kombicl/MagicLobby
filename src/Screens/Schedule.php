@@ -3,11 +3,11 @@
  * Programación de una pantalla: qué lista se muestra según el día y la hora.
  */
 
-namespace LobbyInfo\Screens;
+namespace MagicLobby\Screens;
 
 use DateTimeImmutable;
-use LobbyInfo\Playlists\Playlist;
-use LobbyInfo\Shared\Admin;
+use MagicLobby\Playlists\Playlist;
+use MagicLobby\Shared\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -16,13 +16,13 @@ final class Schedule {
 	/** Días en el orden de la semana chilena; la clave es la de date('w'). */
 	public static function days() {
 		return array(
-			1 => __( 'Lun', 'lobbyinfo' ),
-			2 => __( 'Mar', 'lobbyinfo' ),
-			3 => __( 'Mié', 'lobbyinfo' ),
-			4 => __( 'Jue', 'lobbyinfo' ),
-			5 => __( 'Vie', 'lobbyinfo' ),
-			6 => __( 'Sáb', 'lobbyinfo' ),
-			0 => __( 'Dom', 'lobbyinfo' ),
+			1 => __( 'Lun', 'magiclobby' ),
+			2 => __( 'Mar', 'magiclobby' ),
+			3 => __( 'Mié', 'magiclobby' ),
+			4 => __( 'Jue', 'magiclobby' ),
+			5 => __( 'Vie', 'magiclobby' ),
+			6 => __( 'Sáb', 'magiclobby' ),
+			0 => __( 'Dom', 'magiclobby' ),
 		);
 	}
 

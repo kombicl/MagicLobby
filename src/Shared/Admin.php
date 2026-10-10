@@ -3,13 +3,13 @@
  * Utilidades comunes del administrador: menú, estilos, guardado seguro y saneamiento.
  */
 
-namespace LobbyInfo\Shared;
+namespace MagicLobby\Shared;
 
 defined( 'ABSPATH' ) || exit;
 
 final class Admin {
 
-	/** Menú principal "LobbyInfo" (lo crea el tipo Pantalla). */
+	/** Menú principal "MagicLobby" (lo crea el tipo Pantalla). */
 	public const MENU = 'edit.php?post_type=li_screen';
 
 	public const POST_TYPES = array( 'li_screen', 'li_playlist', 'li_item' );
@@ -29,15 +29,15 @@ final class Admin {
 		}
 		printf(
 			'<div class="notice notice-warning"><p>%s <a href="%s">%s</a></p></div>',
-			esc_html__( 'LobbyInfo: la zona horaria del sitio es un desfase fijo, así que la programación se correrá una hora con el cambio de horario. Elige una ciudad (por ejemplo, Santiago).', 'lobbyinfo' ),
+			esc_html__( 'MagicLobby: la zona horaria del sitio es un desfase fijo, así que la programación se correrá una hora con el cambio de horario. Elige una ciudad (por ejemplo, Santiago).', 'magiclobby' ),
 			esc_url( admin_url( 'options-general.php' ) ),
-			esc_html__( 'Ir a Ajustes', 'lobbyinfo' )
+			esc_html__( 'Ir a Ajustes', 'magiclobby' )
 		);
 	}
 
 	public static function enqueue_styles() {
 		if ( self::is_editing( self::POST_TYPES ) ) {
-			wp_enqueue_style( 'lobbyinfo-admin', LOBBYINFO_URL . 'src/Shared/assets/admin.css', array(), LOBBYINFO_VERSION );
+			wp_enqueue_style( 'magiclobby-admin', MAGICLOBBY_URL . 'src/Shared/assets/admin.css', array(), MAGICLOBBY_VERSION );
 		}
 	}
 
@@ -49,16 +49,16 @@ final class Admin {
 
 	/** Script propio de un área, p. ej. script( 'Screens', 'screen-editor' ). */
 	public static function script( $feature, $name, array $deps = array( 'jquery' ) ) {
-		wp_enqueue_script( 'lobbyinfo-' . $name, LOBBYINFO_URL . "src/{$feature}/assets/{$name}.js", $deps, LOBBYINFO_VERSION, true );
+		wp_enqueue_script( 'magiclobby-' . $name, MAGICLOBBY_URL . "src/{$feature}/assets/{$name}.js", $deps, MAGICLOBBY_VERSION, true );
 	}
 
 	public static function nonce_field() {
-		wp_nonce_field( 'lobbyinfo_save', 'lobbyinfo_nonce' );
+		wp_nonce_field( 'magiclobby_save', 'magiclobby_nonce' );
 	}
 
 	public static function can_save( $post_id ) {
-		return isset( $_POST['lobbyinfo_nonce'] )
-			&& wp_verify_nonce( sanitize_key( $_POST['lobbyinfo_nonce'] ), 'lobbyinfo_save' )
+		return isset( $_POST['magiclobby_nonce'] )
+			&& wp_verify_nonce( sanitize_key( $_POST['magiclobby_nonce'] ), 'magiclobby_save' )
 			&& ! wp_is_post_autosave( $post_id )
 			&& ! wp_is_post_revision( $post_id )
 			&& current_user_can( 'edit_post', $post_id );

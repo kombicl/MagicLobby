@@ -3,9 +3,9 @@
  * Contenido: una pieza que se muestra en pantalla (imagen, video, texto, YouTube o página web).
  */
 
-namespace LobbyInfo\Contents;
+namespace MagicLobby\Contents;
 
-use LobbyInfo\Shared\Admin;
+use MagicLobby\Shared\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -23,13 +23,13 @@ final class Content {
 	public static function register_post_type() {
 		register_post_type( self::POST_TYPE, array(
 			'labels'          => array(
-				'name'          => __( 'Contenidos', 'lobbyinfo' ),
-				'singular_name' => __( 'Contenido', 'lobbyinfo' ),
-				'all_items'     => __( 'Contenidos', 'lobbyinfo' ),
-				'add_new'       => __( 'Añadir contenido', 'lobbyinfo' ),
-				'add_new_item'  => __( 'Añadir contenido', 'lobbyinfo' ),
-				'edit_item'     => __( 'Editar contenido', 'lobbyinfo' ),
-				'not_found'     => __( 'No hay contenidos.', 'lobbyinfo' ),
+				'name'          => __( 'Contenidos', 'magiclobby' ),
+				'singular_name' => __( 'Contenido', 'magiclobby' ),
+				'all_items'     => __( 'Contenidos', 'magiclobby' ),
+				'add_new'       => __( 'Añadir contenido', 'magiclobby' ),
+				'add_new_item'  => __( 'Añadir contenido', 'magiclobby' ),
+				'edit_item'     => __( 'Editar contenido', 'magiclobby' ),
+				'not_found'     => __( 'No hay contenidos.', 'magiclobby' ),
 			),
 			'public'          => false,
 			'show_ui'         => true,
@@ -42,11 +42,11 @@ final class Content {
 
 	public static function types() {
 		return array(
-			'image'   => __( 'Imagen', 'lobbyinfo' ),
-			'video'   => __( 'Video', 'lobbyinfo' ),
-			'text'    => __( 'Texto', 'lobbyinfo' ),
-			'youtube' => __( 'YouTube', 'lobbyinfo' ),
-			'url'     => __( 'Página web', 'lobbyinfo' ),
+			'image'   => __( 'Imagen', 'magiclobby' ),
+			'video'   => __( 'Video', 'magiclobby' ),
+			'text'    => __( 'Texto', 'magiclobby' ),
+			'youtube' => __( 'YouTube', 'magiclobby' ),
+			'url'     => __( 'Página web', 'magiclobby' ),
 		);
 	}
 

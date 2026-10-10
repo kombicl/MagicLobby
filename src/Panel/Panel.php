@@ -7,22 +7,22 @@
  * hay WordPress. Usa los usuarios y capacidades de WordPress, pero sin su interfaz.
  */
 
-namespace LobbyInfo\Panel;
+namespace MagicLobby\Panel;
 
-use LobbyInfo\Categories\Category;
-use LobbyInfo\Contents\Content;
-use LobbyInfo\Playlists\Playlist;
-use LobbyInfo\Screens\Schedule;
-use LobbyInfo\Screens\Screen;
-use LobbyInfo\Settings\Settings;
+use MagicLobby\Categories\Category;
+use MagicLobby\Contents\Content;
+use MagicLobby\Playlists\Playlist;
+use MagicLobby\Screens\Schedule;
+use MagicLobby\Screens\Screen;
+use MagicLobby\Settings\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
 final class Panel {
 
 	public const BASE = 'gestor';
-	public const QV   = 'lobbyinfo_panel';
-	public const QV_PATH = 'lobbyinfo_panel_path';
+	public const QV   = 'magiclobby_panel';
+	public const QV_PATH = 'magiclobby_panel_path';
 
 	/** Capacidad mínima para entrar al panel. */
 	public const CAP = 'edit_posts';
@@ -102,11 +102,11 @@ final class Panel {
 	/* ---------------- Acceso ---------------- */
 
 	private static function handle_login() {
-		if ( 'POST' !== ( $_SERVER['REQUEST_METHOD'] ?? '' ) || empty( $_POST['lobbyinfo_login'] ) ) {
+		if ( 'POST' !== ( $_SERVER['REQUEST_METHOD'] ?? '' ) || empty( $_POST['magiclobby_login'] ) ) {
 			return;
 		}
-		if ( ! wp_verify_nonce( sanitize_key( $_POST['_pn'] ?? '' ), 'lobbyinfo_login' ) ) {
-			self::$error = __( 'La sesión expiró. Inténtalo de nuevo.', 'lobbyinfo' );
+		if ( ! wp_verify_nonce( sanitize_key( $_POST['_pn'] ?? '' ), 'magiclobby_login' ) ) {
+			self::$error = __( 'La sesión expiró. Inténtalo de nuevo.', 'magiclobby' );
 			return;
 		}
 		$user = wp_signon( array(
@@ -115,10 +115,10 @@ final class Panel {
 			'remember'      => ! empty( $_POST['recordar'] ),
 		) );
 		if ( is_wp_error( $user ) ) {
-			self::$error = __( 'Usuario o clave incorrectos.', 'lobbyinfo' );
+			self::$error = __( 'Usuario o clave incorrectos.', 'magiclobby' );
 		} elseif ( ! user_can( $user, self::CAP ) ) {
 			wp_logout();
-			self::$error = __( 'Esta cuenta no tiene acceso al panel.', 'lobbyinfo' );
+			self::$error = __( 'Esta cuenta no tiene acceso al panel.', 'magiclobby' );
 		} else {
 			wp_set_current_user( $user->ID );
 			wp_safe_redirect( self::url() );
@@ -219,8 +219,8 @@ final class Panel {
 	/* ---------------- Guardado ---------------- */
 
 	private static function handle_post( $section ) {
-		if ( ! wp_verify_nonce( sanitize_key( $_POST['_pn'] ?? '' ), 'lobbyinfo_panel' ) ) {
-			self::$error = __( 'La sesión expiró. Vuelve a intentarlo.', 'lobbyinfo' );
+		if ( ! wp_verify_nonce( sanitize_key( $_POST['_pn'] ?? '' ), 'magiclobby_panel' ) ) {
+			self::$error = __( 'La sesión expiró. Vuelve a intentarlo.', 'magiclobby' );
 			return;
 		}
 		$do = sanitize_key( $_POST['do'] ?? '' );
@@ -231,13 +231,13 @@ final class Panel {
 				self::save_content( $in );
 				break;
 			case 'borrar_contenido':
-				self::delete_post( absint( $in['id'] ?? 0 ), Content::POST_TYPE, 'contenidos', __( 'Contenido eliminado.', 'lobbyinfo' ) );
+				self::delete_post( absint( $in['id'] ?? 0 ), Content::POST_TYPE, 'contenidos', __( 'Contenido eliminado.', 'magiclobby' ) );
 				break;
 			case 'guardar_lista':
 				self::save_playlist( $in );
 				break;
 			case 'borrar_lista':
-				self::delete_post( absint( $in['id'] ?? 0 ), Playlist::POST_TYPE, 'listas', __( 'Lista eliminada.', 'lobbyinfo' ) );
+				self::delete_post( absint( $in['id'] ?? 0 ), Playlist::POST_TYPE, 'listas', __( 'Lista eliminada.', 'magiclobby' ) );
 				break;
 			case 'guardar_pantalla':
 				self::save_screen( $in );
@@ -256,9 +256,9 @@ final class Panel {
 					}
 					$in['brand_logo'] = $logo;
 					Settings::save( $in );
-					self::redirect_with( 'ajustes', __( 'Ajustes guardados.', 'lobbyinfo' ) );
+					self::redirect_with( 'ajustes', __( 'Ajustes guardados.', 'magiclobby' ) );
 				}
-				self::redirect_with( 'ajustes', __( 'No tienes permiso para cambiar los ajustes.', 'lobbyinfo' ), true );
+				self::redirect_with( 'ajustes', __( 'No tienes permiso para cambiar los ajustes.', 'magiclobby' ), true );
 				break;
 		}
 	}
@@ -272,12 +272,12 @@ final class Panel {
 		$type = array_key_exists( $type, Content::types() ) ? $type : 'text';
 		$data = array(
 			'post_type'   => Content::POST_TYPE,
-			'post_title'  => sanitize_text_field( $in['titulo'] ?? '' ) ?: __( 'Sin título', 'lobbyinfo' ),
+			'post_title'  => sanitize_text_field( $in['titulo'] ?? '' ) ?: __( 'Sin título', 'magiclobby' ),
 			'post_status' => empty( $in['publicado'] ) ? 'draft' : 'publish',
 		);
 		$id = $id ? ( $data['ID'] = $id ) && wp_update_post( $data ) : wp_insert_post( $data );
 		if ( ! $id || is_wp_error( $id ) ) {
-			self::redirect_with( 'contenidos', __( 'No se pudo guardar.', 'lobbyinfo' ), true );
+			self::redirect_with( 'contenidos', __( 'No se pudo guardar.', 'magiclobby' ), true );
 		}
 
 		update_post_meta( $id, '_li_type', $type );
@@ -300,7 +300,7 @@ final class Panel {
 		$cats = array_map( 'absint', (array) ( $in['categorias'] ?? array() ) );
 		wp_set_object_terms( $id, $cats ?: null, Category::TAXONOMY );
 
-		self::redirect_with( 'contenidos', __( 'Contenido guardado.', 'lobbyinfo' ) );
+		self::redirect_with( 'contenidos', __( 'Contenido guardado.', 'magiclobby' ) );
 	}
 
 	private static function save_playlist( $in ) {
@@ -310,7 +310,7 @@ final class Panel {
 		$id   = absint( $in['id'] ?? 0 );
 		$data = array(
 			'post_type'   => Playlist::POST_TYPE,
-			'post_title'  => sanitize_text_field( $in['titulo'] ?? '' ) ?: __( 'Lista sin nombre', 'lobbyinfo' ),
+			'post_title'  => sanitize_text_field( $in['titulo'] ?? '' ) ?: __( 'Lista sin nombre', 'magiclobby' ),
 			'post_status' => 'publish',
 		);
 		if ( $id ) {
@@ -320,13 +320,13 @@ final class Panel {
 			$id = wp_insert_post( $data );
 		}
 		if ( ! $id || is_wp_error( $id ) ) {
-			self::redirect_with( 'listas', __( 'No se pudo guardar.', 'lobbyinfo' ), true );
+			self::redirect_with( 'listas', __( 'No se pudo guardar.', 'magiclobby' ), true );
 		}
 		// El orden viene en un campo oculto separado por comas (lo arma el JS).
 		$order = array_filter( array_map( 'absint', explode( ',', (string) ( $in['orden'] ?? '' ) ) ) );
 		update_post_meta( $id, '_li_items', array_values( $order ) );
 		update_post_meta( $id, '_li_categories', array_map( 'absint', (array) ( $in['categorias'] ?? array() ) ) );
-		self::redirect_with( 'listas', __( 'Lista guardada.', 'lobbyinfo' ) );
+		self::redirect_with( 'listas', __( 'Lista guardada.', 'magiclobby' ) );
 	}
 
 	private static function save_screen( $in ) {
@@ -336,7 +336,7 @@ final class Panel {
 		$id   = absint( $in['id'] ?? 0 );
 		$data = array(
 			'post_type'   => Screen::POST_TYPE,
-			'post_title'  => sanitize_text_field( $in['titulo'] ?? '' ) ?: __( 'Pantalla', 'lobbyinfo' ),
+			'post_title'  => sanitize_text_field( $in['titulo'] ?? '' ) ?: __( 'Pantalla', 'magiclobby' ),
 			'post_status' => 'publish',
 		);
 		if ( $id ) {
@@ -346,12 +346,12 @@ final class Panel {
 			$id = wp_insert_post( $data );
 		}
 		if ( ! $id || is_wp_error( $id ) ) {
-			self::redirect_with( 'pantallas', __( 'No se pudo guardar.', 'lobbyinfo' ), true );
+			self::redirect_with( 'pantallas', __( 'No se pudo guardar.', 'magiclobby' ), true );
 		}
 		$trans = sanitize_key( $in['transicion'] ?? 'fade' );
 		update_post_meta( $id, '_li_playlist', absint( $in['lista'] ?? 0 ) );
 		update_post_meta( $id, '_li_transition', array_key_exists( $trans, Screen::transitions() ) ? $trans : 'fade' );
-		self::redirect_with( 'pantallas', __( 'Pantalla guardada.', 'lobbyinfo' ) );
+		self::redirect_with( 'pantallas', __( 'Pantalla guardada.', 'magiclobby' ) );
 	}
 
 	private static function delete_post( $id, $type, $back, $msg ) {
@@ -359,7 +359,7 @@ final class Panel {
 			wp_trash_post( $id );
 			self::redirect_with( $back, $msg );
 		}
-		self::redirect_with( $back, __( 'No se pudo eliminar.', 'lobbyinfo' ), true );
+		self::redirect_with( $back, __( 'No se pudo eliminar.', 'magiclobby' ), true );
 	}
 
 	/* ---------------- Utilidades ---------------- */
@@ -377,7 +377,7 @@ final class Panel {
 	}
 
 	private static function redirect_with( $section, $msg, $error = false ) {
-		set_transient( 'lobbyinfo_flash_' . get_current_user_id(), array( 'msg' => $msg, 'error' => $error ), 30 );
+		set_transient( 'magiclobby_flash_' . get_current_user_id(), array( 'msg' => $msg, 'error' => $error ), 30 );
 		wp_safe_redirect( self::url( $section ) );
 		exit;
 	}
@@ -389,9 +389,9 @@ final class Panel {
 	/* ---------------- Render ---------------- */
 
 	private static function render( $view, array $vars = array() ) {
-		$flash = get_transient( 'lobbyinfo_flash_' . get_current_user_id() );
+		$flash = get_transient( 'magiclobby_flash_' . get_current_user_id() );
 		if ( $flash ) {
-			delete_transient( 'lobbyinfo_flash_' . get_current_user_id() );
+			delete_transient( 'magiclobby_flash_' . get_current_user_id() );
 			if ( ! empty( $flash['error'] ) ) {
 				self::$error = $flash['msg'];
 			} else {
@@ -399,34 +399,34 @@ final class Panel {
 			}
 		}
 
-		$assets  = LOBBYINFO_URL . 'src/Panel/assets/';
+		$assets  = MAGICLOBBY_URL . 'src/Panel/assets/';
 		$brand   = self::brand();
 		$notice  = self::$notice;
 		$error   = self::$error;
 		$section = explode( '/', trim( (string) get_query_var( self::QV_PATH ), '/' ) )[0] ?: 'inicio';
-		$content_view = LOBBYINFO_DIR . 'src/Panel/views/' . $view . '.php';
+		$content_view = MAGICLOBBY_DIR . 'src/Panel/views/' . $view . '.php';
 		extract( $vars, EXTR_SKIP ); // phpcs:ignore WordPress.PHP.DontExtract -- datos controlados de la vista.
 
 		if ( 'login' === $view ) {
-			require LOBBYINFO_DIR . 'src/Panel/views/login.php';
+			require MAGICLOBBY_DIR . 'src/Panel/views/login.php';
 			return;
 		}
-		require LOBBYINFO_DIR . 'src/Panel/views/layout.php';
+		require MAGICLOBBY_DIR . 'src/Panel/views/layout.php';
 	}
 
 	/** Campo oculto de seguridad para los formularios del panel. */
-	public static function nonce_field( $action = 'lobbyinfo_panel' ) {
+	public static function nonce_field( $action = 'magiclobby_panel' ) {
 		echo '<input type="hidden" name="_pn" value="' . esc_attr( wp_create_nonce( $action ) ) . '">';
 	}
 
 	/** Navegación principal del panel. */
 	public static function nav() {
 		return array(
-			'inicio'     => __( 'Inicio', 'lobbyinfo' ),
-			'contenidos' => __( 'Contenidos', 'lobbyinfo' ),
-			'listas'     => __( 'Listas', 'lobbyinfo' ),
-			'pantallas'  => __( 'Pantallas', 'lobbyinfo' ),
-			'ajustes'    => __( 'Ajustes', 'lobbyinfo' ),
+			'inicio'     => __( 'Inicio', 'magiclobby' ),
+			'contenidos' => __( 'Contenidos', 'magiclobby' ),
+			'listas'     => __( 'Listas', 'magiclobby' ),
+			'pantallas'  => __( 'Pantallas', 'magiclobby' ),
+			'ajustes'    => __( 'Ajustes', 'magiclobby' ),
 		);
 	}
 }

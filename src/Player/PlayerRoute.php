@@ -3,15 +3,15 @@
  * Página pública del reproductor: /pantalla/{slug}/
  */
 
-namespace LobbyInfo\Player;
+namespace MagicLobby\Player;
 
-use LobbyInfo\Screens\Screen;
+use MagicLobby\Screens\Screen;
 
 defined( 'ABSPATH' ) || exit;
 
 final class PlayerRoute {
 
-	public const QUERY_VAR = 'lobbyinfo_screen';
+	public const QUERY_VAR = 'magiclobby_screen';
 
 	public static function register() {
 		add_action( 'init', array( self::class, 'add_rewrite' ) );
@@ -38,7 +38,7 @@ final class PlayerRoute {
 		if ( ! $screen ) {
 			status_header( 404 );
 			nocache_headers();
-			wp_die( esc_html__( 'Pantalla no encontrada.', 'lobbyinfo' ), '', array( 'response' => 404 ) );
+			wp_die( esc_html__( 'Pantalla no encontrada.', 'magiclobby' ), '', array( 'response' => 404 ) );
 		}
 
 		nocache_headers();
@@ -46,8 +46,8 @@ final class PlayerRoute {
 			'endpoint' => PlayerApi::endpoint( $screen->post_name ),
 			'initial'  => PlayerPayload::for_screen( $screen->ID ),
 		);
-		$assets = LOBBYINFO_URL . 'src/Player/assets/';
-		require LOBBYINFO_DIR . 'src/Player/views/player.php';
+		$assets = MAGICLOBBY_URL . 'src/Player/assets/';
+		require MAGICLOBBY_DIR . 'src/Player/views/player.php';
 		exit;
 	}
 }

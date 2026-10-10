@@ -6,19 +6,19 @@
  * @var array      $types
  */
 
-namespace LobbyInfo\Panel;
+namespace MagicLobby\Panel;
 
-use LobbyInfo\Contents\Content;
+use MagicLobby\Contents\Content;
 
 defined( 'ABSPATH' ) || exit;
 ?>
 <div class="lp-head">
-	<h1><?php esc_html_e( 'Contenidos', 'lobbyinfo' ); ?></h1>
-	<a class="lp-btn lp-btn-primary" href="<?php echo esc_url( Panel::url( 'contenidos/nuevo' ) ); ?>"><?php esc_html_e( '+ Nuevo contenido', 'lobbyinfo' ); ?></a>
+	<h1><?php esc_html_e( 'Contenidos', 'magiclobby' ); ?></h1>
+	<a class="lp-btn lp-btn-primary" href="<?php echo esc_url( Panel::url( 'contenidos/nuevo' ) ); ?>"><?php esc_html_e( '+ Nuevo contenido', 'magiclobby' ); ?></a>
 </div>
 
 <?php if ( ! $items ) : ?>
-	<div class="lp-empty"><p><?php esc_html_e( 'Aún no hay contenidos. Crea el primero para empezar.', 'lobbyinfo' ); ?></p></div>
+	<div class="lp-empty"><p><?php esc_html_e( 'Aún no hay contenidos. Crea el primero para empezar.', 'magiclobby' ); ?></p></div>
 <?php else : ?>
 	<div class="lp-list">
 		<?php
@@ -37,11 +37,11 @@ defined( 'ABSPATH' ) || exit;
 					?>
 				</span>
 				<span class="lp-row-main">
-					<strong><?php echo esc_html( get_the_title( $it ) ?: __( '(sin título)', 'lobbyinfo' ) ); ?></strong>
+					<strong><?php echo esc_html( get_the_title( $it ) ?: __( '(sin título)', 'magiclobby' ) ); ?></strong>
 					<small><?php echo esc_html( $types[ $type ] ?? $type ); ?></small>
 				</span>
 				<span class="lp-badge <?php echo 'publish' === $it->post_status ? 'is-on' : 'is-off'; ?>">
-					<?php echo 'publish' === $it->post_status ? esc_html__( 'Publicado', 'lobbyinfo' ) : esc_html__( 'Oculto', 'lobbyinfo' ); ?>
+					<?php echo 'publish' === $it->post_status ? esc_html__( 'Publicado', 'magiclobby' ) : esc_html__( 'Oculto', 'magiclobby' ); ?>
 				</span>
 			</a>
 		<?php endforeach; ?>

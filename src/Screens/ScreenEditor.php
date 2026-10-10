@@ -3,10 +3,10 @@
  * Formulario de edición de una pantalla: lista por defecto, transición, programación y enlace.
  */
 
-namespace LobbyInfo\Screens;
+namespace MagicLobby\Screens;
 
-use LobbyInfo\Playlists\Playlist;
-use LobbyInfo\Shared\Admin;
+use MagicLobby\Playlists\Playlist;
+use MagicLobby\Shared\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -25,21 +25,21 @@ final class ScreenEditor {
 	}
 
 	public static function add_boxes() {
-		add_meta_box( 'lobbyinfo_screen', __( 'Configuración de la pantalla', 'lobbyinfo' ), array( self::class, 'render' ), Screen::POST_TYPE, 'normal', 'high' );
-		add_meta_box( 'lobbyinfo_screen_link', __( 'Enlace de la pantalla', 'lobbyinfo' ), array( self::class, 'render_link' ), Screen::POST_TYPE, 'side', 'high' );
+		add_meta_box( 'magiclobby_screen', __( 'Configuración de la pantalla', 'magiclobby' ), array( self::class, 'render' ), Screen::POST_TYPE, 'normal', 'high' );
+		add_meta_box( 'magiclobby_screen_link', __( 'Enlace de la pantalla', 'magiclobby' ), array( self::class, 'render_link' ), Screen::POST_TYPE, 'side', 'high' );
 	}
 
 	public static function render( $post ) {
 		Admin::nonce_field();
 		$transition = Screen::transition( $post->ID );
 		?>
-		<table class="form-table lobbyinfo-form">
+		<table class="form-table magiclobby-form">
 			<tr>
-				<th><label for="li_playlist"><?php esc_html_e( 'Lista por defecto', 'lobbyinfo' ); ?></label></th>
-				<td><select name="li_playlist" id="li_playlist"><?php echo Admin::post_options( Playlist::POST_TYPE, Schedule::default_playlist( $post->ID ), __( '— Ninguna —', 'lobbyinfo' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></select></td>
+				<th><label for="li_playlist"><?php esc_html_e( 'Lista por defecto', 'magiclobby' ); ?></label></th>
+				<td><select name="li_playlist" id="li_playlist"><?php echo Admin::post_options( Playlist::POST_TYPE, Schedule::default_playlist( $post->ID ), __( '— Ninguna —', 'magiclobby' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></select></td>
 			</tr>
 			<tr>
-				<th><label for="li_transition"><?php esc_html_e( 'Transición', 'lobbyinfo' ); ?></label></th>
+				<th><label for="li_transition"><?php esc_html_e( 'Transición', 'magiclobby' ); ?></label></th>
 				<td>
 					<select name="li_transition" id="li_transition">
 						<?php foreach ( Screen::transitions() as $key => $label ) : ?>
@@ -50,15 +50,15 @@ final class ScreenEditor {
 			</tr>
 		</table>
 
-		<h4><?php esc_html_e( 'Programación', 'lobbyinfo' ); ?></h4>
-		<p class="description"><?php esc_html_e( 'Se usa la primera regla que coincida con el día y la hora actual. Si ninguna coincide, se muestra la lista por defecto. Hora vacía = todo el día.', 'lobbyinfo' ); ?></p>
-		<table class="widefat striped lobbyinfo-schedule">
+		<h4><?php esc_html_e( 'Programación', 'magiclobby' ); ?></h4>
+		<p class="description"><?php esc_html_e( 'Se usa la primera regla que coincida con el día y la hora actual. Si ninguna coincide, se muestra la lista por defecto. Hora vacía = todo el día.', 'magiclobby' ); ?></p>
+		<table class="widefat striped magiclobby-schedule">
 			<thead>
 				<tr>
-					<th><?php esc_html_e( 'Días', 'lobbyinfo' ); ?></th>
-					<th><?php esc_html_e( 'Desde', 'lobbyinfo' ); ?></th>
-					<th><?php esc_html_e( 'Hasta', 'lobbyinfo' ); ?></th>
-					<th><?php esc_html_e( 'Lista', 'lobbyinfo' ); ?></th>
+					<th><?php esc_html_e( 'Días', 'magiclobby' ); ?></th>
+					<th><?php esc_html_e( 'Desde', 'magiclobby' ); ?></th>
+					<th><?php esc_html_e( 'Hasta', 'magiclobby' ); ?></th>
+					<th><?php esc_html_e( 'Lista', 'magiclobby' ); ?></th>
 					<th></th>
 				</tr>
 			</thead>
@@ -71,7 +71,7 @@ final class ScreenEditor {
 			</tbody>
 		</table>
 		<script type="text/template" id="li_schedule_tpl"><?php self::schedule_row( '__i__', array() ); ?></script>
-		<p><button type="button" class="button" id="li_schedule_add"><?php esc_html_e( 'Agregar regla', 'lobbyinfo' ); ?></button></p>
+		<p><button type="button" class="button" id="li_schedule_add"><?php esc_html_e( 'Agregar regla', 'magiclobby' ); ?></button></p>
 		<?php
 	}
 
@@ -80,29 +80,29 @@ final class ScreenEditor {
 		$name = 'li_schedule[' . $i . ']';
 		?>
 		<tr>
-			<td class="lobbyinfo-days">
+			<td class="magiclobby-days">
 				<?php foreach ( Schedule::days() as $num => $label ) : ?>
 					<label><input type="checkbox" name="<?php echo esc_attr( $name ); ?>[days][]" value="<?php echo esc_attr( $num ); ?>" <?php checked( in_array( $num, $days, true ) ); ?>> <?php echo esc_html( $label ); ?></label>
 				<?php endforeach; ?>
 			</td>
 			<td><input type="time" name="<?php echo esc_attr( $name ); ?>[start]" value="<?php echo esc_attr( $rule['start'] ?? '' ); ?>"></td>
 			<td><input type="time" name="<?php echo esc_attr( $name ); ?>[end]" value="<?php echo esc_attr( $rule['end'] ?? '' ); ?>"></td>
-			<td><select name="<?php echo esc_attr( $name ); ?>[playlist]"><?php echo Admin::post_options( Playlist::POST_TYPE, $rule['playlist'] ?? 0, __( '— Lista —', 'lobbyinfo' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></select></td>
-			<td><button type="button" class="button-link-delete lobbyinfo-remove" aria-label="<?php esc_attr_e( 'Quitar', 'lobbyinfo' ); ?>">&times;</button></td>
+			<td><select name="<?php echo esc_attr( $name ); ?>[playlist]"><?php echo Admin::post_options( Playlist::POST_TYPE, $rule['playlist'] ?? 0, __( '— Lista —', 'magiclobby' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></select></td>
+			<td><button type="button" class="button-link-delete magiclobby-remove" aria-label="<?php esc_attr_e( 'Quitar', 'magiclobby' ); ?>">&times;</button></td>
 		</tr>
 		<?php
 	}
 
 	public static function render_link( $post ) {
 		if ( 'publish' !== $post->post_status ) {
-			echo '<p>' . esc_html__( 'Publica la pantalla para obtener su enlace.', 'lobbyinfo' ) . '</p>';
+			echo '<p>' . esc_html__( 'Publica la pantalla para obtener su enlace.', 'magiclobby' ) . '</p>';
 			return;
 		}
 		$url = Screen::url( $post );
 		?>
-		<p><?php esc_html_e( 'Abre este enlace en el navegador de la TV, en pantalla completa:', 'lobbyinfo' ); ?></p>
+		<p><?php esc_html_e( 'Abre este enlace en el navegador de la TV, en pantalla completa:', 'magiclobby' ); ?></p>
 		<p><input type="text" class="widefat" readonly value="<?php echo esc_attr( $url ); ?>" onfocus="this.select()"></p>
-		<p><a href="<?php echo esc_url( $url ); ?>" target="_blank" rel="noopener" class="button"><?php esc_html_e( 'Abrir pantalla', 'lobbyinfo' ); ?></a></p>
+		<p><a href="<?php echo esc_url( $url ); ?>" target="_blank" rel="noopener" class="button"><?php esc_html_e( 'Abrir pantalla', 'magiclobby' ); ?></a></p>
 		<p><?php echo ScreenList::status_html( $post->ID ); // phpcs:ignore WordPress.Security.EscapeOutput ?></p>
 		<?php
 	}

@@ -22,3 +22,5 @@ if ( ! is_wp_error( $terms ) ) {
 		wp_delete_term( $term_id, 'li_category' );
 	}
 }
+
+delete_option( 'magiclobby_settings' );

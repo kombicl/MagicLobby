@@ -11,7 +11,7 @@
  * @var string $content_view
  */
 
-namespace LobbyInfo\Panel;
+namespace MagicLobby\Panel;
 
 defined( 'ABSPATH' ) || exit;
 ?><!doctype html>
@@ -21,7 +21,7 @@ defined( 'ABSPATH' ) || exit;
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="robots" content="noindex, nofollow">
 	<title><?php echo esc_html( $brand['name'] ); ?></title>
-	<link rel="stylesheet" href="<?php echo esc_url( $assets . 'panel.css?ver=' . LOBBYINFO_VERSION ); ?>">
+	<link rel="stylesheet" href="<?php echo esc_url( $assets . 'panel.css?ver=' . MAGICLOBBY_VERSION ); ?>">
 </head>
 <body class="lp">
 	<header class="lp-top">
@@ -36,7 +36,7 @@ defined( 'ABSPATH' ) || exit;
 			<?php foreach ( Panel::nav() as $key => $label ) : ?>
 				<a href="<?php echo esc_url( Panel::url( $key ) ); ?>" class="<?php echo $section === $key ? 'is-active' : ''; ?>"><?php echo esc_html( $label ); ?></a>
 			<?php endforeach; ?>
-			<a href="<?php echo esc_url( Panel::url( 'salir' ) ); ?>" class="lp-logout"><?php esc_html_e( 'Salir', 'lobbyinfo' ); ?></a>
+			<a href="<?php echo esc_url( Panel::url( 'salir' ) ); ?>" class="lp-logout"><?php esc_html_e( 'Salir', 'magiclobby' ); ?></a>
 		</nav>
 	</header>
 
@@ -50,6 +50,6 @@ defined( 'ABSPATH' ) || exit;
 		<?php require $content_view; ?>
 	</main>
 
-	<script src="<?php echo esc_url( $assets . 'panel.js?ver=' . LOBBYINFO_VERSION ); ?>"></script>
+	<script src="<?php echo esc_url( $assets . 'panel.js?ver=' . MAGICLOBBY_VERSION ); ?>"></script>
 </body>
 </html>

@@ -3,13 +3,13 @@
  * Lo que recibe el reproductor de una pantalla en este momento.
  */
 
-namespace LobbyInfo\Player;
+namespace MagicLobby\Player;
 
-use LobbyInfo\Contents\Content;
-use LobbyInfo\Playlists\Playlist;
-use LobbyInfo\Screens\Schedule;
-use LobbyInfo\Screens\Screen;
-use LobbyInfo\Settings\Settings;
+use MagicLobby\Contents\Content;
+use MagicLobby\Playlists\Playlist;
+use MagicLobby\Screens\Schedule;
+use MagicLobby\Screens\Screen;
+use MagicLobby\Settings\Settings;
 
 defined( 'ABSPATH' ) || exit;
 

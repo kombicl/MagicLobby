@@ -1,11 +1,11 @@
 <?php
 /**
- * API pública que consulta el reproductor: GET /wp-json/lobbyinfo/v1/screens/{slug}
+ * API pública que consulta el reproductor: GET /wp-json/magiclobby/v1/screens/{slug}
  */
 
-namespace LobbyInfo\Player;
+namespace MagicLobby\Player;
 
-use LobbyInfo\Screens\Screen;
+use MagicLobby\Screens\Screen;
 use WP_Error;
 use WP_REST_Request;
 
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 
 final class PlayerApi {
 
-	public const NAMESPACE = 'lobbyinfo/v1';
+	public const NAMESPACE = 'magiclobby/v1';
 
 	public static function register() {
 		add_action( 'rest_api_init', array( self::class, 'routes' ) );
@@ -34,7 +34,7 @@ final class PlayerApi {
 	public static function screen( WP_REST_Request $request ) {
 		$screen = Screen::find_by_slug( $request['slug'] );
 		if ( ! $screen ) {
-			return new WP_Error( 'lobbyinfo_not_found', __( 'Pantalla no encontrada.', 'lobbyinfo' ), array( 'status' => 404 ) );
+			return new WP_Error( 'magiclobby_not_found', __( 'Pantalla no encontrada.', 'magiclobby' ), array( 'status' => 404 ) );
 		}
 		Screen::mark_seen( $screen->ID );
 

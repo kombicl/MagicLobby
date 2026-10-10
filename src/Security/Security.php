@@ -4,7 +4,7 @@
  * del sitio por la API REST de WordPress (comportamiento por defecto del core).
  */
 
-namespace LobbyInfo\Security;
+namespace MagicLobby\Security;
 
 use WP_Error;
 
@@ -35,7 +35,7 @@ final class Security {
 		}
 		$route = $GLOBALS['wp']->query_vars['rest_route'] ?? '';
 		if ( str_starts_with( (string) $route, '/wp/v2/users' ) && ! is_user_logged_in() ) {
-			return new WP_Error( 'rest_user_cannot_view', __( 'No autorizado.', 'lobbyinfo' ), array( 'status' => 401 ) );
+			return new WP_Error( 'rest_user_cannot_view', __( 'No autorizado.', 'magiclobby' ), array( 'status' => 401 ) );
 		}
 		return $result;
 	}

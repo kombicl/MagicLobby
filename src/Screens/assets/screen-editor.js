@@ -8,7 +8,7 @@ jQuery( function ( $ ) {
 		$rows.append( tpl.replace( /__i__/g, next++ ) );
 	} );
 
-	$rows.on( 'click', '.lobbyinfo-remove', function () {
+	$rows.on( 'click', '.magiclobby-remove', function () {
 		$( this ).closest( 'tr' ).remove();
 	} );
 } );

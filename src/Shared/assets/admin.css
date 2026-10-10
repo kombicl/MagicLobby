@@ -1,23 +1,23 @@
-.lobbyinfo-form th { width: 180px; }
-.lobbyinfo-media-preview img,
-.lobbyinfo-media-preview video { display: block; max-width: 320px; height: auto; margin-bottom: 8px; border-radius: 4px; }
-.lobbyinfo-form label + label { margin-left: 16px; }
+.magiclobby-form th { width: 180px; }
+.magiclobby-media-preview img,
+.magiclobby-media-preview video { display: block; max-width: 320px; height: auto; margin-bottom: 8px; border-radius: 4px; }
+.magiclobby-form label + label { margin-left: 16px; }
 
-.lobbyinfo-items { margin: 12px 0; max-width: 640px; }
-.lobbyinfo-items li { display: flex; align-items: center; gap: 8px; margin: 0 0 4px; padding: 8px 10px; background: #fff; border: 1px solid #dcdcde; border-radius: 4px; cursor: move; }
-.lobbyinfo-items .lobbyinfo-item-title { flex: 1; }
-.lobbyinfo-items .lobbyinfo-item-type { color: #646970; font-size: 12px; }
-.lobbyinfo-items .ui-sortable-placeholder { visibility: visible !important; background: #f0f6fc; border: 1px dashed #72aee6; }
-.lobbyinfo-remove { font-size: 18px; line-height: 1; text-decoration: none; }
+.magiclobby-items { margin: 12px 0; max-width: 640px; }
+.magiclobby-items li { display: flex; align-items: center; gap: 8px; margin: 0 0 4px; padding: 8px 10px; background: #fff; border: 1px solid #dcdcde; border-radius: 4px; cursor: move; }
+.magiclobby-items .magiclobby-item-title { flex: 1; }
+.magiclobby-items .magiclobby-item-type { color: #646970; font-size: 12px; }
+.magiclobby-items .ui-sortable-placeholder { visibility: visible !important; background: #f0f6fc; border: 1px dashed #72aee6; }
+.magiclobby-remove { font-size: 18px; line-height: 1; text-decoration: none; }
 
-.lobbyinfo-check { display: inline-block; margin: 0 16px 8px 0; }
-.lobbyinfo-check .count { color: #646970; }
+.magiclobby-check { display: inline-block; margin: 0 16px 8px 0; }
+.magiclobby-check .count { color: #646970; }
 
-.lobbyinfo-schedule td { vertical-align: middle; }
-.lobbyinfo-days label { display: inline-block; margin-right: 8px; white-space: nowrap; }
+.magiclobby-schedule td { vertical-align: middle; }
+.magiclobby-days label { display: inline-block; margin-right: 8px; white-space: nowrap; }
 
-.lobbyinfo-status::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 6px; border-radius: 50%; background: #a7aaad; }
-.lobbyinfo-status.is-online::before { background: #00a32a; }
-.lobbyinfo-status.is-offline::before { background: #d63638; }
+.magiclobby-status::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 6px; border-radius: 50%; background: #a7aaad; }
+.magiclobby-status.is-online::before { background: #00a32a; }
+.magiclobby-status.is-offline::before { background: #d63638; }
 .column-li_thumb { width: 70px; }
 .column-li_thumb img { border-radius: 3px; }

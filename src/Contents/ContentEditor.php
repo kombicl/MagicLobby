@@ -3,9 +3,9 @@
  * Formulario de edición de un contenido.
  */
 
-namespace LobbyInfo\Contents;
+namespace MagicLobby\Contents;
 
-use LobbyInfo\Shared\Admin;
+use MagicLobby\Shared\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -25,7 +25,7 @@ final class ContentEditor {
 	}
 
 	public static function add_box() {
-		add_meta_box( 'lobbyinfo_content', __( 'Contenido', 'lobbyinfo' ), array( self::class, 'render' ), Content::POST_TYPE, 'normal', 'high' );
+		add_meta_box( 'magiclobby_content', __( 'Contenido', 'magiclobby' ), array( self::class, 'render' ), Content::POST_TYPE, 'normal', 'high' );
 	}
 
 	public static function render( $post ) {
@@ -35,9 +35,9 @@ final class ContentEditor {
 		$fit      = get_post_meta( $post->ID, '_li_fit', true ) ?: 'cover';
 		$meta     = fn( $key, $default = '' ) => get_post_meta( $post->ID, $key, true ) ?: $default;
 		?>
-		<table class="form-table lobbyinfo-form">
+		<table class="form-table magiclobby-form">
 			<tr>
-				<th><label for="li_type"><?php esc_html_e( 'Tipo', 'lobbyinfo' ); ?></label></th>
+				<th><label for="li_type"><?php esc_html_e( 'Tipo', 'magiclobby' ); ?></label></th>
 				<td>
 					<select name="li_type" id="li_type">
 						<?php foreach ( Content::types() as $key => $label ) : ?>
@@ -47,10 +47,10 @@ final class ContentEditor {
 				</td>
 			</tr>
 			<tr data-li-types="image video">
-				<th><?php esc_html_e( 'Archivo', 'lobbyinfo' ); ?></th>
+				<th><?php esc_html_e( 'Archivo', 'magiclobby' ); ?></th>
 				<td>
 					<input type="hidden" name="li_media" id="li_media" value="<?php echo esc_attr( $media ?: '' ); ?>">
-					<div class="lobbyinfo-media-preview" id="li_media_preview">
+					<div class="magiclobby-media-preview" id="li_media_preview">
 						<?php
 						if ( $media ) {
 							echo wp_attachment_is( 'video', $media )
@@ -59,49 +59,49 @@ final class ContentEditor {
 						}
 						?>
 					</div>
-					<button type="button" class="button" id="li_media_pick"><?php esc_html_e( 'Elegir de la biblioteca', 'lobbyinfo' ); ?></button>
-					<button type="button" class="button-link-delete" id="li_media_clear"><?php esc_html_e( 'Quitar', 'lobbyinfo' ); ?></button>
+					<button type="button" class="button" id="li_media_pick"><?php esc_html_e( 'Elegir de la biblioteca', 'magiclobby' ); ?></button>
+					<button type="button" class="button-link-delete" id="li_media_clear"><?php esc_html_e( 'Quitar', 'magiclobby' ); ?></button>
 				</td>
 			</tr>
 			<tr data-li-types="image video">
-				<th><label for="li_fit"><?php esc_html_e( 'Ajuste', 'lobbyinfo' ); ?></label></th>
+				<th><label for="li_fit"><?php esc_html_e( 'Ajuste', 'magiclobby' ); ?></label></th>
 				<td>
 					<select name="li_fit" id="li_fit">
-						<option value="cover" <?php selected( $fit, 'cover' ); ?>><?php esc_html_e( 'Llenar la pantalla (recorta)', 'lobbyinfo' ); ?></option>
-						<option value="contain" <?php selected( $fit, 'contain' ); ?>><?php esc_html_e( 'Mostrar completo (con bordes)', 'lobbyinfo' ); ?></option>
+						<option value="cover" <?php selected( $fit, 'cover' ); ?>><?php esc_html_e( 'Llenar la pantalla (recorta)', 'magiclobby' ); ?></option>
+						<option value="contain" <?php selected( $fit, 'contain' ); ?>><?php esc_html_e( 'Mostrar completo (con bordes)', 'magiclobby' ); ?></option>
 					</select>
 				</td>
 			</tr>
 			<tr data-li-types="text">
-				<th><?php esc_html_e( 'Texto', 'lobbyinfo' ); ?></th>
+				<th><?php esc_html_e( 'Texto', 'magiclobby' ); ?></th>
 				<td>
 					<?php wp_editor( (string) $meta( '_li_text' ), 'li_text', array( 'textarea_rows' => 8, 'media_buttons' => false ) ); ?>
 					<p>
-						<label><?php esc_html_e( 'Fondo', 'lobbyinfo' ); ?> <input type="color" name="li_bg" value="<?php echo esc_attr( $meta( '_li_bg', '#000000' ) ); ?>"></label>
-						<label><?php esc_html_e( 'Letra', 'lobbyinfo' ); ?> <input type="color" name="li_fg" value="<?php echo esc_attr( $meta( '_li_fg', '#ffffff' ) ); ?>"></label>
+						<label><?php esc_html_e( 'Fondo', 'magiclobby' ); ?> <input type="color" name="li_bg" value="<?php echo esc_attr( $meta( '_li_bg', '#000000' ) ); ?>"></label>
+						<label><?php esc_html_e( 'Letra', 'magiclobby' ); ?> <input type="color" name="li_fg" value="<?php echo esc_attr( $meta( '_li_fg', '#ffffff' ) ); ?>"></label>
 					</p>
 				</td>
 			</tr>
 			<tr data-li-types="youtube url">
-				<th><label for="li_url"><?php esc_html_e( 'Dirección (URL)', 'lobbyinfo' ); ?></label></th>
+				<th><label for="li_url"><?php esc_html_e( 'Dirección (URL)', 'magiclobby' ); ?></label></th>
 				<td>
 					<input type="url" class="large-text" name="li_url" id="li_url" value="<?php echo esc_attr( $meta( '_li_url' ) ); ?>" placeholder="https://">
-					<p class="description"><?php esc_html_e( 'Algunos sitios web no permiten mostrarse dentro de otra página.', 'lobbyinfo' ); ?></p>
+					<p class="description"><?php esc_html_e( 'Algunos sitios web no permiten mostrarse dentro de otra página.', 'magiclobby' ); ?></p>
 				</td>
 			</tr>
 			<tr>
-				<th><label for="li_duration"><?php esc_html_e( 'Duración (segundos)', 'lobbyinfo' ); ?></label></th>
+				<th><label for="li_duration"><?php esc_html_e( 'Duración (segundos)', 'magiclobby' ); ?></label></th>
 				<td>
 					<input type="number" min="0" step="1" class="small-text" name="li_duration" id="li_duration" value="<?php echo esc_attr( $meta( '_li_duration' ) ); ?>">
-					<p class="description"><?php echo esc_html( sprintf( __( 'Vacío: %d segundos. En videos, vacío significa reproducir hasta el final.', 'lobbyinfo' ), Content::DEFAULT_DURATION ) ); ?></p>
+					<p class="description"><?php echo esc_html( sprintf( __( 'Vacío: %d segundos. En videos, vacío significa reproducir hasta el final.', 'magiclobby' ), Content::DEFAULT_DURATION ) ); ?></p>
 				</td>
 			</tr>
 			<tr>
-				<th><?php esc_html_e( 'Vigencia', 'lobbyinfo' ); ?></th>
+				<th><?php esc_html_e( 'Vigencia', 'magiclobby' ); ?></th>
 				<td>
-					<label><?php esc_html_e( 'Desde', 'lobbyinfo' ); ?> <input type="date" name="li_from" value="<?php echo esc_attr( $meta( '_li_from' ) ); ?>"></label>
-					<label><?php esc_html_e( 'Hasta', 'lobbyinfo' ); ?> <input type="date" name="li_to" value="<?php echo esc_attr( $meta( '_li_to' ) ); ?>"></label>
-					<p class="description"><?php esc_html_e( 'Opcional. Fuera de estas fechas el contenido no se muestra.', 'lobbyinfo' ); ?></p>
+					<label><?php esc_html_e( 'Desde', 'magiclobby' ); ?> <input type="date" name="li_from" value="<?php echo esc_attr( $meta( '_li_from' ) ); ?>"></label>
+					<label><?php esc_html_e( 'Hasta', 'magiclobby' ); ?> <input type="date" name="li_to" value="<?php echo esc_attr( $meta( '_li_to' ) ); ?>"></label>
+					<p class="description"><?php esc_html_e( 'Opcional. Fuera de estas fechas el contenido no se muestra.', 'magiclobby' ); ?></p>
 				</td>
 			</tr>
 		</table>

@@ -3,7 +3,7 @@
  * Punto de entrada: registra cada área del dominio.
  */
 
-namespace LobbyInfo;
+namespace MagicLobby;
 
 defined( 'ABSPATH' ) || exit;
 

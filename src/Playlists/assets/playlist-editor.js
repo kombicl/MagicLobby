@@ -7,7 +7,7 @@ jQuery( function ( $ ) {
 		return $( '<div>' ).text( text ).html();
 	}
 
-	$list.sortable( { handle: '.dashicons-menu, .lobbyinfo-item-title', placeholder: 'ui-sortable-placeholder', forcePlaceholderSize: true } );
+	$list.sortable( { handle: '.dashicons-menu, .magiclobby-item-title', placeholder: 'ui-sortable-placeholder', forcePlaceholderSize: true } );
 
 	$( '#li_item_add_btn' ).on( 'click', function () {
 		var $opt = $( '#li_item_add option:selected' );
@@ -21,7 +21,7 @@ jQuery( function ( $ ) {
 		$( '#li_item_add' ).val( '0' );
 	} );
 
-	$list.on( 'click', '.lobbyinfo-remove', function () {
+	$list.on( 'click', '.magiclobby-remove', function () {
 		$( this ).closest( 'li' ).remove();
 	} );
 } );
