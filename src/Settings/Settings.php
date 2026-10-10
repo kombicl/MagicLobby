@@ -24,6 +24,7 @@ final class Settings {
 			'brand_logo'   => 0,          // ID de adjunto, opcional.
 			'poll_seconds' => 30,         // Cada cuánto consulta la TV.
 			'player_bg'    => '#000000',  // Fondo del reproductor cuando no hay contenido.
+			'cf_trust'     => 0,          // Confiar en Cloudflare para recuperar la IP real del visitante.
 		);
 	}
 
@@ -43,9 +44,15 @@ final class Settings {
 			'brand_logo'   => absint( $values['brand_logo'] ?? $current['brand_logo'] ),
 			'poll_seconds' => max( 10, min( 3600, absint( $values['poll_seconds'] ?? $current['poll_seconds'] ) ) ),
 			'player_bg'    => sanitize_hex_color( $values['player_bg'] ?? '' ) ?: $current['player_bg'],
+			'cf_trust'     => empty( $values['cf_trust'] ) ? 0 : 1,
 		);
 		update_option( self::OPTION, $clean );
 		return $clean;
+	}
+
+	/** ¿Está activada la confianza en Cloudflare? */
+	public static function cf_trust() {
+		return (int) self::get( 'cf_trust' ) === 1;
 	}
 
 	public static function brand_name() {

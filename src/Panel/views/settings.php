@@ -50,6 +50,15 @@ $logo_url = Settings::logo_url();
 		<input type="color" name="player_bg" value="<?php echo esc_attr( $settings['player_bg'] ); ?>">
 	</label>
 
+	<div class="lp-field">
+		<span class="lp-label"><?php esc_html_e( 'Seguridad', 'magiclobby' ); ?></span>
+		<label class="lp-check">
+			<input type="checkbox" name="cf_trust" value="1" <?php checked( ! empty( $settings['cf_trust'] ) ); ?>>
+			<?php esc_html_e( 'Confiar en Cloudflare', 'magiclobby' ); ?>
+		</label>
+		<small><?php esc_html_e( 'Actívalo solo si el sitio está detrás de Cloudflare. Recupera la IP real del visitante (CF-Connecting-IP), validando que la conexión venga de los rangos oficiales de Cloudflare.', 'magiclobby' ); ?></small>
+	</div>
+
 	<div class="lp-actions">
 		<button type="submit" class="lp-btn lp-btn-primary"><?php esc_html_e( 'Guardar ajustes', 'magiclobby' ); ?></button>
 	</div>
