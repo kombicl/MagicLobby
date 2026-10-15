@@ -22,7 +22,7 @@ jobs:
       - name: Leer la versión del plugin
         id: ver
         run: |
-          V=$(grep -oiP '^\s*\*\s*Version:\s*\K[0-9][0-9.]*' magiclobby.php | head -1)
+          V=$(grep -oiP '^\s*\*\s*Version:\s*\K[0-9][0-9A-Za-z.\-]*' magiclobby.php | head -1)
           echo "version=$V" >> "$GITHUB_OUTPUT"
           echo "Versión detectada: $V"
 

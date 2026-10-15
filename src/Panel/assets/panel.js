@@ -42,7 +42,8 @@
 		var order = pl.querySelector( '[data-order]' );
 		var addSel = pl.querySelector( '[data-add]' );
 		var addBtn = pl.querySelector( '[data-add-btn]' );
-		var tpl = pl.querySelector( '[data-row-tpl]' );
+		// La plantilla vive fuera del <form>, así que se busca en todo el documento.
+		var tpl = document.querySelector( '[data-row-tpl]' );
 
 		var sync = function () {
 			order.value = Array.prototype.map.call( list.children, function ( li ) {
@@ -58,24 +59,29 @@
 		};
 		Array.prototype.forEach.call( list.children, attachRemove );
 
-		addBtn.addEventListener( 'click', function () {
-			var opt = addSel.options[ addSel.selectedIndex ];
-			var id = opt.value;
-			if ( ! +id ) {
-				return;
-			}
-			var html = tpl.innerHTML
-				.replace( /__id__/g, id )
-				.replace( '__title__', opt.textContent )
-				.replace( '__type__', opt.getAttribute( 'data-type' ) || '' );
-			var wrap = document.createElement( 'tbody' );
-			wrap.innerHTML = html.trim();
-			var li = wrap.firstChild;
-			list.appendChild( li );
-			attachRemove( li );
-			addSel.selectedIndex = 0;
-			sync();
-		} );
+		if ( addBtn && addSel && list && tpl ) {
+			addBtn.addEventListener( 'click', function () {
+				var opt = addSel.options[ addSel.selectedIndex ];
+				var id = opt.value;
+				if ( ! +id ) {
+					return;
+				}
+				var html = tpl.innerHTML
+					.replace( /__id__/g, id )
+					.replace( '__title__', opt.textContent )
+					.replace( '__type__', opt.getAttribute( 'data-type' ) || '' );
+				var wrap = document.createElement( 'ul' );
+				wrap.innerHTML = html.trim();
+				var li = wrap.firstChild;
+				if ( ! li ) {
+					return;
+				}
+				list.appendChild( li );
+				attachRemove( li );
+				addSel.selectedIndex = 0;
+				sync();
+			} );
+		}
 
 		// Arrastrar para ordenar (HTML5 drag & drop).
 		var dragged = null;
